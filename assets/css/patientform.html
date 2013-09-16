@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>mUzima Form</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">	
+	
+<!-- Bootstrap -->
+<script src="js/jquery.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/datepicker.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css"/>
+
+ <script src="js/jquery.validate.min.js"></script>
+<script>
+$(document).ready(function(){
+ 
+ $('#labform').validate(
+ {
+  rules: {
+    
+	 locationuuid: {
+     
+      required: true
+    }
+	
+    
+  },
+  highlight: function(element) {
+    $(element).closest('.control-group').removeClass('success').addClass('error');
+  },
+  success: function(element) {
+    element
+    .text('OK!').addClass('valid')
+    .closest('.control-group').removeClass('error').addClass('success');
+  }
+ });
+}); // end document.ready
+
+</script>
+	
+</head>
+	
+<script type="text/javascript">
+    function foo(){  
+	
+	var currentTime = new Date();
+	var hours = currentTime.getHours();
+	var minutes = currentTime.getMinutes();
+	
+	var time= hours + ":" + minutes;
+	var date= document.getElementById("dp4").value;
+	var date_time= date + " " +time;
+
+     var dataObj = new Object();
+     dataObj.datasource = "datasource please define method to retrieve datasource";
+     dataObj.discriminator = "encounter";
+
+     var payload = new Object();
+
+     var person = new Object();
+     person["person.uuid"] = "retrieve from phone via javascript"
+     payload.person = person;
+
+     var encounter = new Object();
+     encounter["provider.uuid"] = document.getElementById("providerlocation").value;
+     encounter["location.uuid"] = document.getElementById("locationuuid").value;
+     encounter["form.uuid"] = "fe9fc58f-d196-46cb-956d-f46445f558d9";
+     encounter["encounterType.uuid"]="8d5b2be0-c2cc-11de-8d13-0010c6dffd0f";
+     encounter["datetime"] = date_time;
+     payload.encounter = encounter;
+
+     var obs = new Array();
+
+     var obsElement = new Object();
+	 var checkedValue = null; 
+	 var uuid_code = null;
+	 var inputElements = document.getElementsByTagName('input');
+		 for(var i=0; inputElements[i]; ++i){
+		 if(inputElements[i].className==="messageCheckbox" && 
+         inputElements[i].checked){
+           checkedValue = inputElements[i].value;
+		   uuid_code = "159969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+           break;
+        } 
+
+		
+}
+	var inputElements = document.getElementsByTagName('input');
+		 for(var i=0; inputElements[i]; ++i){
+		 if(inputElements[i].className==="checkbox" && 
+         inputElements[i].checked){
+           checkedValue = inputElements[i].value;
+		   uuid_code = "307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+           break;
+        }  
+
+		
+}
+		 
+     obsElement.uuid = uuid_code;
+     obsElement.type = "coded";
+     obsElement.value = checkedValue;
+     obs.push(obsElement);
+
+     payload.obs = obs;
+
+     dataObj.payload = payload;
+			 
+     var jsonObj = JSON.stringify(dataObj);  
+	 alert('Form submitted. Values object:\n' + JSON.stringify(dataObj, null, 2));
+     /* NOTE: Calling Activity Method using the Activity defined 
+        instance "android" in JavaScript */
+     //android.TestMethod(jsonObj); 
+     }  
+    </script>  
+	
+<body>
+    <h3>Sputum Lab Test Form </h3>
+ 
+    <script src="js/bootstrap.min.js"></script>
+	
+    <script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+
+    <script type="text/javascript">
+        var uuidGlobal; 
+            function setPersonUUID(patientUuid){
+            alert("Getting uuid: " + patientUuid);
+            uuidGlobal = patientUuid;
+            document.getElementById("person.uuid").value=uuidGlobal;
+
+        }
+    </script>
+
+    <script type="text/javascript">
+        var patient_middlename; 
+            function setPersonmiddleNAME(patientmiddlename){
+            alert("Getting patient middle name: " + patientmiddlename);
+            patient_middlename = patientmiddlename;
+            document.getElementById("inputPatientmiddlename").value=patient_middlename;
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        var patient_givenname; 
+            function setPersongivenNAME(patientgivenname){
+            alert("Getting patient given name: " + patientgivenname);
+            patient_givenname = patientgivenname;
+            document.getElementById("inputpatientgivenname").value=patient_givenname;
+
+    }
+
+    </script>
+
+    <script type="text/javascript">
+    var patient_familyname; 
+        function setPersonfamilyNAME(patientfamilyname){
+        alert("Getting patient family name: " + patientfamilyname);
+        patient_familyname = patientfamilyname;
+        document.getElementById("inputPatientfamily").value=patient_familyname;
+
+    }
+
+    </script>
+
+   	<form id="labform" class="form-horizontal">
+	
+    <div class="control-group">
+    <label class="control-label" for="inputpatientgivenname">Patient Given Name</label>
+         <div class="controls">
+            <input type="text" id="inputpatientgivenname" placeholder="PatientGivenName" value=""readonly>
+        </div>
+    </div>
+
+    <div class="control-group">
+    <label class="control-label" for="inputPatientmiddlename">Patient Middle Name</label>
+        <div class="controls">
+        <input type="text" id="inputPatientmiddlename" placeholder="Patientmiddlename" value=""readonly>
+        </div>
+    </div>
+	 
+    <div class="control-group">
+    <label class="control-label" for="inputPatientfamilyname">Patient Family Name</label>
+        <div class="controls">
+        <input type="text" id="inputPatientfamily" placeholder="Patientfamilyname"value="" readonly>
+        </div>
+    </div>
+	
+    <div class="control-group">
+    <label class="control-label" for="inputBirthdate">Encounter Date Time</label>
+	       <script>
+	       $(document).ready(function () {
+             $('#dp3').datepicker();
+});
+	</script>
+    	<div class="controls">
+            <div class="input-append date" id="dp3" data-date-format="dd-mm-yyyy">
+            <input id="dp4"class="span2" size="16" type="text" name="dp4" value="12-02-2013" readonly><span class="add-on"><i class="icon-th"></i></span>
+	       </div>
+        </div>
+    </div>
+  
+
+	
+	<div class="control-group">
+    <label class="control-label" for="inputprovideridlocation">Provider ID Location</label>
+        <div class="controls">
+            <select class="element select medium" id="providerlocation" name="element_10"> 
+				<option value="" selected="selected"></option>
+				    <option value="3d0c01b7-0306-45cd-a86f-8c96fee0b012" >Ampath</option>
+				        <option value="e1b1d9eb-69a2-4843-bccc-e73e33c70e4c" >Reach</option>
+				            <option value="8d6c993e-c2cc-11de-8d13-0010c6dffd0f" >UnKnown</option>
+
+			</select>
+         </div>
+    </div>
+	
+    <div class="control-group">
+    <label class="control-label" for="inputproviderid">Provider ID</label>
+        <div class="controls">
+                <select class="element select medium" id="locationuuid" name="locationuuid"> 
+				    <option value="" selected="selected"></option>
+				        <option value="42299c9e-02a0-473a-8142-6c79c13f6e56" >Win</option>
+				            <option value="2" >Patrick</option>
+				                <option value="3" >Admin</option>
+				                    <option value="4" >Judy</option>
+				</select>
+        </div>
+    </div>
+
+	       <fieldset>
+                 <legend>Obs</legend>
+	<div class="control-group">
+    <label class="control-label" for="inputproviderid"></label>
+        <div class="controls">
+	
+           <legend>Sputum For Fast Acid Bascilli</legend> 
+        <p>
+ 				<label class="checkbox">
+                <input type="checkbox" id="inlineCheckbox1" class="checkbox" name='checkbox'value="1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Three Plus 
+                </label>
+	    </p>
+
+	    <p>
+                <label class="checkbox">
+                <input type="checkbox" id="inlineCheckbox2" class="checkbox" name='checkbox' value="1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Two Plus 
+                </label>
+        </p>
+
+	    <p>
+                <label class="checkbox">
+                <input type="checkbox" id="inlineCheckbox3" class="checkbox"  name='checkbox'value="1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> One Plus
+                </label>
+	    </p>
+	
+        <p>
+	            <label class="checkbox">
+                <input type="checkbox" id="inlineCheckbox3" class="checkbox" name='checkbox'value="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Negative
+                </label>
+        </p>
+	
+        <p>
+	            <label class="checkbox">
+                <input type="checkbox" id="inlineCheckbox3" class="checkbox" name='checkbox' value="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Positive
+                </label>
+	    </p>
+	
+        <p>
+                <label class="checkbox">
+                <input type="checkbox" id="inlineCheckbox3" class="checkbox"  name='checkbox' value="159985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Scanty
+                </label>
+	    </p>
+	    
+        <p>
+	           <label class="checkbox">
+               <input type="checkbox" id="inlineCheckbox3" class="checkbox" name='checkbox'value="160008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Contaminated Specimen
+               </label>
+	    </p>
+        </div>
+    </div>
+	
+	<div class="control-group">
+    <label class="control-label" for="inputproviderid"></label>
+        <div class="controls">
+	
+                <legend>Appearance Of Specimen</legend> 
+ 		<p>
+				<label class="checkbox ">
+                <input type="checkbox" id="inlineCheckbox1" class="messageCheckbox" value="1076AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Purulent
+                </label>
+        </p>
+
+    	<p>
+                <label class="checkbox ">
+                <input type="checkbox" id="inlineCheckbox2"class="messageCheckbox"  value="159985AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Scanty
+                </label>
+        </p>
+
+	    <p>
+                <label class="checkbox ">
+                <input type="checkbox" id="inlineCheckbox3" class="messageCheckbox" value="159985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Red colour
+                </label>
+        </p>
+
+	    <p>
+	           <label class="checkbox">
+               <input type="checkbox" id="inlineCheckbox3" class="messageCheckbox" value="127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Saliva
+               </label>
+        </p>
+	
+        <p>
+	           <label class="checkbox">
+               <input type="checkbox" id="inlineCheckbox3" class="messageCheckbox" value="160013AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Bloody
+               </label>
+	    </p>
+	
+        <p>
+	           <label class="checkbox">
+               <input type="checkbox" id="inlineCheckbox3" class="messageCheckbox" value="160014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> Muco Pulurent
+               </label>
+	    </p>
+
+        </div>
+    </div>
+		</fieldset>
+		
+	<div class="control-group">
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" onClick="foo()">Submit</button>
+            <button type="button" class="btn">Refresh</button>
+        </div>
+	</div>
+    <div id="footer">
+            Generated by <a href="http://www.mUzima.org">mUzima</a>
+            <p>Author by : Patrick and Judy TB team</p>
+    </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>mUzima Form</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">	
+	<script src="js/jquery.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/datepicker.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css"/>
+
+<script src="js/jquery.validate.min.js"></script>
+<script>
+	$(document).ready(function(){
+ 
+ $('#registration').validate(
+ {
+  rules: {
+    inputpatientgivenname: {
+      minlength: 3,
+      required: true
+    },
+    inputPatientmiddlename: {
+	  minlength: 3,
+      required: true
+    },
+    inputPatientfamily: {
+      minlength: 3,
+      required: true
+    },
+	 patientgender: {
+     
+      required: true
+    },
+	dp4: {
+     
+      required: true
+    },
+	 inputAddress1: {
+     
+      required: true
+    },
+	 providerid: {
+     
+      required: true
+    },
+	 patientidtype: {
+     
+      required: true
+    }
+	
+    
+  },
+  highlight: function(element) {
+    $(element).closest('.control-group').removeClass('success').addClass('error');
+  },
+  success: function(element) {
+    element
+    .text('OK!').addClass('valid')
+    .closest('.control-group').removeClass('error').addClass('success');
+  }
+ });
+}); // end document.ready
+
+</script>
+    </head>
+<body onload()>
+    <h2>Registration Form </h2>
+   	
+    <script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+	
+	<script type="text/javascript">
+        function foo(){  
+	var currentTime = new Date();
+	var hours = currentTime.getHours();
+	var minutes = currentTime.getMinutes();
+	
+	var time= hours + ":" + minutes;
+	var date= document.getElementById("dp4").value;
+	var date_time= date + " " +time;
+	
+    var dataObj = new Object();
+        dataObj.datasource = "c1d68123-cecb-4b2b-8cc3-0352246c7a96";
+        dataObj.discriminator ="registration";
+
+    var payload = new Object();
+   
+        payload["person.identifier"] = "9999-4";
+        payload["patient.identifier_type"] = document.getElementById("providerid").value;;
+        payload["patient.identifier_location"] = document.getElementById("patientidtype").value;
+        payload["patient.uuid"] = "232323";
+        payload["patient.birthdate"]= date_time;
+        payload["patient.birthdate_estimated"] = document.getElementById("patient.birthdate_estimated").value;
+	    payload["patient.given_name"] = document.getElementById("inputpatientgivenname").value;
+	    payload["patient.middle_name"] = document.getElementById("inputPatientmiddlename").value;
+	    payload["patient.family_name"] = document.getElementById("inputPatientfamily").value;
+	    payload["patient.gender"] = document.getElementById("patientgender").value;
+	    payload["patient.address_address1"] = document.getElementById("inputAddress1").value;
+	    payload["patient.address_address2"] = document.getElementById("inputAddress1").value;
+	     
+        dataObj.payload = payload;
+			 
+	 
+    var jsonObj = JSON.stringify(dataObj);  
+	 alert('Form submitted. Values object:\n' + JSON.stringify(dataObj, null, 2));
+     /* NOTE: Calling Activity Method using the Activity defined 
+        instance "android" in JavaScript */
+    
+       // android.TestMethod(jsonObj); 
+
+	}  
+   function load () {
+   var storagevalue = localStorage.getItem("Patientgivenname");
+   }
+   
+ </script>
+
+    <form id="registration" class="form-horizontal">
+        
+        <div class="control-group">
+             <label class="control-label" for="inputpatientgivenname">Patient Given Name</label>
+                <div class="controls">
+                     <input type="text" id="inputpatientgivenname" name ="inputpatientgivenname" class="stored" placeholder="PatientGivenName">
+                </div>
+        </div>
+
+        <div class="control-group">
+             <label class="control-label" for="inputPatientmiddlename">Patient Middle Name</label>
+                <div class="controls">
+                     <input type="text" id="inputPatientmiddlename"  name ="inputPatientmiddlename" class="stored" placeholder="Patientmiddlename">
+                </div>
+        </div>
+
+	    <div class="control-group">
+             <label class="control-label" for="inputPatientfamilyname">Patient Family Name</label>
+                <div class="controls">
+                     <input type="text" id="inputPatientfamily"  name ="inputPatientfamily" class="stored" placeholder="Patientfamilyname">
+                </div>
+        </div>
+	
+        <div class="control-group">
+             <label class="control-label" for="inputBirthdate">Birthdate</label>
+	   <script>
+	       $(document).ready(function () {
+                $('#dp3').datepicker();
+            });
+	   </script>
+	            <div class="controls">
+                    <div class="input-append date" id="dp3" data-date-format="dd-mm-yyyy">
+                        <input  id="dp4"class="span2" size="16" name="dp4" type="text" value="" readonly><span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+                </div>
+	    </div>
+    
+        <div class="control-group">
+	         <label class="control-label" for="inputEstimatedbirthdate">Estimated Birthdate</label>
+                <div class="controls">
+                     <label class="checkbox">
+                         <input type="checkbox" id="patient.birthdate_estimated" name="patient.birthdate_estimated" value ="F"> 
+	<script>
+				$(":checkbox").change(function(e){
+					  $(this).val( $(":checked").length > 0 ? "T" : "F");
+					})
+ 	</script>
+             </label>
+                </div>
+        </div>
+	   
+        <div class="control-group">
+             <label class="control-label" for="inputGender">Gender</label>
+                <div class="controls">
+                        <select class="element select small" id="patientgender" name="patientgender"> 
+				                <option value="" selected="selected"></option>
+				                    <option value="M" >Male</option>
+				                        <option value="F" >Female</option>
+				                            <option value="N/A" >N/A</option>
+
+				        </select>
+                </div>
+        </div>
+	
+    <div class="control-group">
+            <label class="control-label" for="inputPatientfamilyname">Address1</label>
+               <div class="controls">
+                    <input type="text" id="inputAddress1" name="inputAddress1" placeholder="Address1">
+               </div>
+    </div>
+
+	<div class="control-group">
+            <label class="control-label" for="inputPatientfamilyname">Address2</label>
+                <div class="controls">
+                 <input type="text" id="inputAddress2" placeholder="Address2">
+                </div>
+	</div>
+	
+    <div class="control-group">
+            <label class="control-label" for="inputproviderid">Provider ID Location</label>
+                <div class="controls">
+                    <select class="element select medium" id="providerid" name="providerid"> 
+				        <option value="3d0c01b7-0306-45cd-a86f-8c96fee0b012" >Ampath</option>
+							<option value="e1b1d9eb-69a2-4843-bccc-e73e33c70e4c" >Reach</option>
+								<option value="8d6c993e-c2cc-11de-8d13-0010c6dffd0f" >UnKnown</option>
+
+				    </select>
+                </div>
+    </div>
+		
+    <div class="control-group">
+            <label class="control-label" for="inputpatientidtype">Patient Identifier Type</label>
+                <div class="controls">
+                    <select class="element select medium" id="patientidtype" name="patientidtype"> 
+					   <option value="" selected="selected"></option>
+					       <option value="8d79403a-c2cc-11de-8d13-0010c6dffd0f" >Old Identification Number</option>
+					           <option value="8d793bee-c2cc-11de-8d13-0010c6dffd0f" >OpenMRS Identification Number</option>
+
+					</select>
+                </div>
+    </div>
+
+	<div class="control-group">
+       <div class="form-actions">
+            <button type="submit" class="btn btn-primary" onClick="foo()">Submit</button>
+            <button type="button" class="btn">Refresh</button>
+        </div>
+	</div>
+    </form>
+	
+	<script type="text/javascript">
+$(document).ready(function () {
+    function init() {
+        if (localStorage["inputpatientgivenname"]) {
+            $('#inputpatientgivenname').val(localStorage["inputpatientgivenname"]);
+        }
+        if (localStorage["inputPatientmiddlename"]) {
+            $('#inputPatientmiddlename').val(localStorage["inputPatientmiddlename"]);
+        }
+        if (localStorage["inputPatientfamily"]) {
+            $('#inputPatientfamily').val(localStorage["inputPatientfamily"]);
+        }
+    }
+    init();
+});
+
+$('.stored').keyup(function () {
+    localStorage[$(this).attr('name')] = $(this).val();
+});
+
+$('#localStorageTest').submit(function() {
+    localStorage.clear();
+});
+</script>
+<script type="text/javascript">
+(function( win ){
+	var doc = win.document;
+   	
+	// If there's a hash, or addEventListener is undefined, stop here
+	if( !location.hash && win.addEventListener ){
+		//scroll to 1
+		window.scrollTo( 0, 1 );
+		var scrollTop = 1,
+			getScrollTop = function(){
+				return win.pageYOffset || doc.compatMode === "CSS1Compat" && doc.documentElement.scrollTop || doc.body.scrollTop || 0;
+			},
+			//reset to 0 on bodyready, if needed
+			bodycheck = setInterval(function(){
+				if( doc.body ){
+					clearInterval( bodycheck );
+					scrollTop = getScrollTop();
+					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+				}	
+			}, 15 );
+		win.addEventListener( "load", function(){
+			setTimeout(function(){
+					//reset to hide addr bar at onload
+					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+			}, 0);
+		} );
+	}
+})( this );
+</script>
+
+</body>
+</html>

@@ -15,79 +15,9 @@
     <script src="date/bootstrap.js"></script>
 	
 </head>
-	 <script type="text/javascript">
-        function foo(){  
-		
-	var currentTime = new Date();
-	var hours = currentTime.getHours();
-	var minutes = currentTime.getMinutes();
-	
-	var time= hours + ":" + minutes;
-	var date= document.getElementById("dp4").value;
-	var date_time= date + " " +time;
-
-     var dataObj = new Object();
-     dataObj.datasource = datasource_uuid;
-     dataObj.discriminator = "encounter";
-
-     var payload = new Object();
-
-     var person = new Object();
-     person["person.uuid"] = uuidGlobal;
-     payload.person = person;
-
-     var encounter = new Object();
-     encounter["provider.uuid"] = document.getElementById("providerlocation").value;
-     encounter["location.uuid"] = document.getElementById("locationuuid").value;
-     encounter["form.uuid"] = form_uuid;
-     encounter["encounterType.uuid"]="8d5b2be0-c2cc-11de-8d13-0010c6dffd0f";
-     encounter["datetime"] = date_time;
-     payload.encounter = encounter;
-
-     var obs = new Array();
-
-     var obsElement = new Object();
-	 var checkedValue = null; 
-	 var uuid_code = null;
-	 var inputElements = document.getElementsByTagName('input');
-		 for(var i=0; inputElements[i]; ++i){
-		 if(inputElements[i].className==="messageCheckbox" && 
-         inputElements[i].checked){
-           checkedValue = inputElements[i].value;
-		   uuid_code = "159969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-           break;
-      } 
-
-		
-}
-	 var inputElements = document.getElementsByTagName('input');
-		 for(var i=0; inputElements[i]; ++i){
-		 if(inputElements[i].className==="checkbox" && 
-         inputElements[i].checked){
-           checkedValue = inputElements[i].value;
-		   uuid_code = "307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-           break;
-      } 
-
-		
-}
-		 
-     obsElement.uuid = uuid_code;
-     obsElement.type = "coded";
-     obsElement.value = checkedValue;
-     obs.push(obsElement);
-
-     payload.obs = obs;
-
-     dataObj.payload = payload;
-			 
-     var jsonObj = JSON.stringify(dataObj);  
-	 alert('Form submitted. Values object:\n' + JSON.stringify(dataObj, null, 2));
-     /* NOTE: Calling Activity Method using the Activity defined 
-        instance "android" in JavaScript */
-     android.FormData(jsonObj); 
-     }  
-    </script>  
+	 <script type="text/javascript" src ="js/senddata.js"></script>
+     <script type="text/javascript" src ="js/getdata.js"></script>
+     
 	
 <body>
     <h3>Sputum Lab Test Form </h3>
@@ -97,70 +27,7 @@
     <script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 
-    <script type="text/javascript">
-        var uuidGlobal; 
-            function setPersonUUID(patientUuid){
-            alert("Getting uuid: " + patientUuid);
-            uuidGlobal = patientUuid;
-            document.getElementById("person.uuid").value=uuidGlobal;
-
-        }
-    </script>
-
-    <script type="text/javascript">
-        var patient_middlename; 
-            function setPersonmiddleNAME(patientmiddlename){
-            alert("Getting patient middle name: " + patientmiddlename);
-            patient_middlename = patientmiddlename;
-            document.getElementById("inputPatientmiddlename").value=patient_middlename;
-        }
-
-    </script>
-
-    <script type="text/javascript">
-        var patient_givenname; 
-            function setPersongivenNAME(patientgivenname){
-            alert("Getting patient given name: " + patientgivenname);
-            patient_givenname = patientgivenname;
-            document.getElementById("inputpatientgivenname").value=patient_givenname;
-
-    }
-
-    </script>
-
-    <script type="text/javascript">
-    var patient_familyname; 
-        function setPersonfamilyNAME(patientfamilyname){
-        alert("Getting patient family name: " + patientfamilyname);
-        patient_familyname = patientfamilyname;
-        document.getElementById("inputPatientfamily").value=patient_familyname;
-
-    }
-
-    </script>
-	
-	<script type="text/javascript">
-        var datasource_uuid; 
-            function setDatasourceUuid(datasourceuuid){
-            alert("Getting datasource: " + datasourceuuid);
-            datasource_uuid = datasourceuuid;
-            
-
-    }
-
-    </script>
-	
-	<script type="text/javascript">
-        var form_uuid; 
-            function setFormUuid(formuuid){
-            alert("Getting formuuid: " + formuuid);
-            form_uuid = formuuid;
-            
-
-    }
-
-    </script>
-
+   
    	<form class="form-horizontal">
     <div class="control-group">
     <label class="control-label" for="inputpatientgivenname">Patient Given Name</label>
